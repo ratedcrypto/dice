@@ -1,11 +1,7 @@
 const {
   GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLBoolean,
   GraphQLInt,
-  GraphQLFloat,
   GraphQLString,
-  GraphQLNonNull,
   GraphQLList
 } = require('graphql');
 const axios = require('axios');

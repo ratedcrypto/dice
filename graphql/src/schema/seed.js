@@ -1,12 +1,8 @@
 const {
   GraphQLObjectType,
-  GraphQLSchema,
   GraphQLBoolean,
   GraphQLInt,
-  GraphQLFloat,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLList
+  GraphQLString
 } = require('graphql');
 
 exports.Type = new GraphQLObjectType({

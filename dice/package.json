@@ -7,7 +7,8 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "test": "docker-compose run --rm dice /node/node_modules/.bin/mocha src"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -19,6 +20,8 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
     "nodemon": "^1.19.1"
   }
 }

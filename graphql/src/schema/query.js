@@ -1,13 +1,4 @@
-const {
-  GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLBoolean,
-  GraphQLInt,
-  GraphQLFloat,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLList
-} = require('graphql');
+const { GraphQLObjectType } = require('graphql');
 const User = require('./user');
 
 exports.Type = new GraphQLObjectType({

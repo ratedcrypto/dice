@@ -1,13 +1,8 @@
 const {
   GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLBoolean,
   GraphQLInt,
   GraphQLFloat,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLList,
-  GraphQLInputObjectType
+  GraphQLNonNull
 } = require('graphql');
 const axios = require('axios');
 const DiceBet = require('./dice-bet');

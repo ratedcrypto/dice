@@ -1,13 +1,4 @@
-const {
-  GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLBoolean,
-  GraphQLInt,
-  GraphQLFloat,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLList
-} = require('graphql');
+const { GraphQLObjectType, GraphQLFloat, GraphQLString } = require('graphql');
 
 exports.Type = new GraphQLObjectType({
   name: 'Statistic',
