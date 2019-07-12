@@ -15,9 +15,12 @@ describe('dice', () => {
   });
 
   it('used nonce in order', async () => {
-    const bets = await Promise.all(
+    let bets = await Promise.all(
       _.range(5).map(() => rollDice({ user: 'test', amount: 0.1, target: 50 }))
     );
+
+    // lets sort them in case bets get returned out of order
+    bets = bets.sort((a, b) => a.nonce - b.nonce);
 
     let [{ nonce: nextNonce }] = bets;
 
