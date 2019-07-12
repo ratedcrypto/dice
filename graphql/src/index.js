@@ -24,6 +24,9 @@ async function start() {
   server.applyMiddleware({ app });
 
   app.listen(80);
+
+  // eslint-disable-next-line no-console
+  console.log('server listening on http://localhost/graphql');
 }
 
 start();

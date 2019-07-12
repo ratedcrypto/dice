@@ -14,7 +14,7 @@ describe('dice', () => {
     expect(bet).to.be.ok;
   });
 
-  it.skip('used nonce in order', async () => {
+  it('used nonce in order', async () => {
     const bets = await Promise.all(
       _.range(5).map(() => rollDice({ user: 'test', amount: 0.1, target: 50 }))
     );
