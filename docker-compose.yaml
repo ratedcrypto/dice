@@ -24,4 +24,14 @@ services:
   dice-postgres:
     image: postgres:10-alpine
 
+  statistic:
+    image: node:10-alpine
+    working_dir: /node
+    command: yarn start
+    volumes:
+    - ./statistic:/node
+
+  statistic-postgres:
+    image: postgres:10-alpine
+
 

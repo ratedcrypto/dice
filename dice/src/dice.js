@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const uuid = require('uuid');
 const assert = require('assert');
 const { knex } = require('./knex');
+const { redis } = require('./redis');
 
 const parseSeed = seed => {
   if (!seed) {
@@ -69,6 +70,8 @@ exports.rollDice = ({ user, amount, target }) =>
     await trx('seed')
       .update('nonce', trx.raw('nonce + 1'))
       .where('id', seed.id);
+
+    await redis.publish('dice', JSON.stringify(bet));
 
     return bet;
   });
