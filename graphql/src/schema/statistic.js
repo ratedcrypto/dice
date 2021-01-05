@@ -5,6 +5,6 @@ exports.Type = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLString },
     wagered: { type: GraphQLFloat },
-    profit: { type: GraphQLFloat }
-  })
+    profit: { type: GraphQLFloat },
+  }),
 });

@@ -4,7 +4,7 @@ const { knex } = require('./knex');
 const { redis } = require('./redis');
 const { updateStatistic, getStatistic } = require('./statistic');
 
-const response = handler => async (req, res) => {
+const response = (handler) => async (req, res) => {
   try {
     res.send(await handler(req.body));
   } catch (e) {

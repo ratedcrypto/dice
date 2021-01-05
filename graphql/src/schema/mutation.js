@@ -2,7 +2,7 @@ const {
   GraphQLObjectType,
   GraphQLInt,
   GraphQLFloat,
-  GraphQLNonNull
+  GraphQLNonNull,
 } = require('graphql');
 const axios = require('axios');
 const DiceBet = require('./dice-bet');
@@ -15,27 +15,27 @@ exports.Type = new GraphQLObjectType({
       type: DiceBet.Type,
       args: {
         target: { type: GraphQLNonNull(GraphQLInt) },
-        amount: { type: GraphQLNonNull(GraphQLFloat) }
+        amount: { type: GraphQLNonNull(GraphQLFloat) },
       },
       async resolve(parent, { amount, target }, { user }) {
         const { data } = await axios.post(`http://dice/roll-dice`, {
           user,
           amount,
-          target
+          target,
         });
         return data;
-      }
+      },
     },
 
     rotateDiceSeed: {
       type: Seed.Type,
       async resolve(parent, args, { user }) {
         const { data } = await axios.post(`http://dice/rotate-seed`, {
-          user
+          user,
         });
 
         return data;
-      }
-    }
-  })
+      },
+    },
+  }),
 });

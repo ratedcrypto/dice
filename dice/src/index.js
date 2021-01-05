@@ -6,10 +6,10 @@ const {
   rollDice,
   getSeed,
   rotateSeed,
-  getActiveSeed
+  getActiveSeed,
 } = require('./dice');
 
-const response = handler => async (req, res) => {
+const response = (handler) => async (req, res) => {
   try {
     res.send(await handler(req.body));
   } catch (e) {
@@ -22,6 +22,10 @@ async function start() {
   const app = express();
 
   app.use(bodyParser.json());
+
+  app.use((req, res, next) => {
+    next();
+  });
 
   app.post(
     '/get-bets',
@@ -42,9 +46,15 @@ async function start() {
     response(async ({ user }) => getActiveSeed({ user }))
   );
 
-  app.post('/rotate-seed', response(async ({ user }) => rotateSeed({ user })));
+  app.post(
+    '/rotate-seed',
+    response(async ({ user }) => rotateSeed({ user }))
+  );
 
-  app.post('/get-seed', response(async ({ seedId }) => getSeed({ seedId })));
+  app.post(
+    '/get-seed',
+    response(async ({ seedId }) => getSeed({ seedId }))
+  );
 
   app.listen(80);
 }

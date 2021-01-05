@@ -9,9 +9,9 @@ exports.knex = createKnex({
     user: 'postgres',
     password: 'password',
     database: 'postgres',
-    charset: 'utf8'
+    charset: 'utf8',
   },
   migrations: {
-    directory: path.join(__dirname, 'migrations')
-  }
+    directory: path.join(__dirname, 'migrations'),
+  },
 });

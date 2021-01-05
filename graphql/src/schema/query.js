@@ -6,7 +6,7 @@ exports.Type = new GraphQLObjectType({
   fields: () => ({
     user: {
       type: User.Type,
-      resolve: (parent, args, { user }) => ({ name: user })
-    }
-  })
+      resolve: (parent, args, { user }) => ({ name: user }),
+    },
+  }),
 });

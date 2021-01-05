@@ -2,7 +2,7 @@ const {
   GraphQLObjectType,
   GraphQLBoolean,
   GraphQLInt,
-  GraphQLString
+  GraphQLString,
 } = require('graphql');
 
 exports.Type = new GraphQLObjectType({
@@ -12,6 +12,6 @@ exports.Type = new GraphQLObjectType({
     active: { type: GraphQLBoolean },
     secret: { type: GraphQLString },
     hash: { type: GraphQLString },
-    nonce: { type: GraphQLInt }
-  })
+    nonce: { type: GraphQLInt },
+  }),
 });

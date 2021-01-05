@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v4: uuid } = require('uuid');
 const { knex } = require('./knex');
 
 exports.updateStatistic = async ({ user, amount, payout }) => {
@@ -18,7 +18,7 @@ exports.updateStatistic = async ({ user, amount, payout }) => {
       id: uuid(),
       user,
       wagered: amount,
-      profit: payout - amount
+      profit: payout - amount,
     }
   );
 };

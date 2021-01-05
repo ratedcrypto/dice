@@ -1,11 +1,11 @@
 const _ = require('lodash');
 const crypto = require('crypto');
-const uuid = require('uuid');
+const { v4: uuid } = require('uuid');
 const assert = require('assert');
 const { knex } = require('./knex');
 const { redis } = require('./redis');
 
-const parseSeed = seed => {
+const parseSeed = (seed) => {
   if (!seed) {
     return null;
   }
@@ -18,7 +18,7 @@ const parseSeed = seed => {
 };
 
 exports.rollDice = ({ user, amount, target }) =>
-  knex.transaction(async trx => {
+  knex.transaction(async (trx) => {
     assert(target >= 0);
     assert(target < 99);
     assert(amount >= 0);
@@ -27,10 +27,7 @@ exports.rollDice = ({ user, amount, target }) =>
 
     if (!seed) {
       const secret = crypto.randomBytes(32).toString('hex');
-      const hash = crypto
-        .createHash('sha256')
-        .update(secret)
-        .digest('hex');
+      const hash = crypto.createHash('sha256').update(secret).digest('hex');
 
       [seed] = await trx('seed')
         .insert({ id: uuid(), user, secret, hash, nonce: 0, active: true })
@@ -63,7 +60,7 @@ exports.rollDice = ({ user, amount, target }) =>
         payout,
         result,
         target,
-        nonce
+        nonce,
       })
       .returning('*');
 

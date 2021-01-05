@@ -18,7 +18,7 @@ async function start() {
       return { user };
     },
     introspection: true,
-    playground: { endpoint: 'http://localhost/graphql' }
+    playground: { endpoint: 'http://localhost/graphql' },
   });
 
   server.applyMiddleware({ app });

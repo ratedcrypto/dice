@@ -1,6 +1,6 @@
 module.exports = {
   client: 'pg',
   migrations: {
-    directory: './src/migrations'
-  }
+    directory: './src/migrations',
+  },
 };
