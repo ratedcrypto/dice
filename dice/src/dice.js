@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const _ = require('lodash');
 const crypto = require('crypto');
 const { v4: uuid } = require('uuid');
@@ -23,7 +24,7 @@ exports.rollDice = ({ user, amount, target }) =>
     assert(target < 99);
     assert(amount >= 0);
 
-    let [seed] = await trx('seed').where('user', user);
+    let [seed] = await trx('seed').where('user', user).forUpdate();
 
     if (!seed) {
       const secret = crypto.randomBytes(32).toString('hex');
