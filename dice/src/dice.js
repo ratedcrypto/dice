@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const _ = require('lodash');
 const crypto = require('crypto');
 const { v4: uuid } = require('uuid');
@@ -24,8 +23,10 @@ exports.rollDice = ({ user, amount, target }) =>
     assert(target < 99);
     assert(amount >= 0);
 
-    let [seed] = await trx('seed').where('user', user).forUpdate();
-
+    let [seed] = await trx('seed')
+      .where('user', user)
+      .where('active', true)
+      .forUpdate();
     if (!seed) {
       const secret = crypto.randomBytes(32).toString('hex');
       const hash = crypto.createHash('sha256').update(secret).digest('hex');
@@ -87,6 +88,11 @@ exports.getBets = async ({ user, limit, offset }) => {
 exports.getSeed = async ({ seedId }) => {
   const [seed] = await knex('seed').where('id', seedId);
   return parseSeed(seed);
+};
+
+exports.getSeeds = async ({ seedIds }) => {
+  const seeds = await knex('seed').whereIn('id', seedIds);
+  return seeds.map((seed) => parseSeed(seed));
 };
 
 exports.rotateSeed = async ({ user }) => {

@@ -5,6 +5,7 @@ const {
   getBets,
   rollDice,
   getSeed,
+  getSeeds,
   rotateSeed,
   getActiveSeed,
 } = require('./dice');
@@ -54,6 +55,10 @@ async function start() {
   app.post(
     '/get-seed',
     response(async ({ seedId }) => getSeed({ seedId }))
+  );
+  app.post(
+    '/get-seeds',
+    response(async ({ seedIds }) => getSeeds({ seedIds }))
   );
 
   app.listen(80);

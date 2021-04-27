@@ -1,12 +1,13 @@
+/* eslint-disable no-console */
 const {
   GraphQLObjectType,
   GraphQLInt,
   GraphQLFloat,
   GraphQLString,
 } = require('graphql');
-const axios = require('axios');
 const User = require('./user');
 const Seed = require('./seed');
+const { diceSeedLoader } = require('../dataloader');
 
 exports.Type = new GraphQLObjectType({
   name: 'DiceBet',
@@ -24,7 +25,7 @@ exports.Type = new GraphQLObjectType({
     seed: {
       type: Seed.Type,
       resolve: async ({ seed_id: seedId }) => {
-        const { data } = await axios.post(`http://dice/get-seed`, { seedId });
+        const data = await diceSeedLoader.load(seedId);
         return data;
       },
     },

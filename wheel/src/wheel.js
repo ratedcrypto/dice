@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const _ = require('lodash');
 const crypto = require('crypto');
 const { v4: uuid } = require('uuid');
