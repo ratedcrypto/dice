@@ -20,7 +20,10 @@ const parseSeed = (seed) => {
 exports.spinWheel = ({ user, amount }) =>
   knex.transaction(async (trx) => {
     assert(amount >= 0);
-    let [seed] = await trx('seed').where('user', user).forUpdate();
+    let [seed] = await trx('seed')
+      .where('user', user)
+      .where('active', true)
+      .forUpdate();
 
     if (!seed) {
       const secret = crypto.randomBytes(32).toString('hex');
@@ -79,6 +82,11 @@ exports.getBets = async ({ user, limit, offset }) => {
 exports.getSeed = async ({ seedId }) => {
   const [seed] = await knex('seed').where('id', seedId);
   return parseSeed(seed);
+};
+
+exports.getSeeds = async ({ seedIds }) => {
+  const seeds = await knex('seed').whereIn('id', seedIds);
+  return seeds.map((seed) => parseSeed(seed));
 };
 
 exports.rotateSeed = async ({ user }) => {
