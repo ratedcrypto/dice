@@ -17,10 +17,8 @@ const parseSeed = (seed) => {
   return seed;
 };
 
-exports.rollDice = ({ user, amount, target }) =>
+exports.spinWheel = ({ user, amount }) =>
   knex.transaction(async (trx) => {
-    assert(target >= 0);
-    assert(target < 99);
     assert(amount >= 0);
 
     let [seed] = await knex('seed').transacting(trx).forUpdate().where('user', user);
@@ -45,12 +43,14 @@ exports.rollDice = ({ user, amount, target }) =>
     const int = parseInt(hmac.substr(0, 8), 16);
     const float = int / 2 ** 32;
 
-    const result = Math.floor(float * 100);
-    const odds = (99 - target) / 100;
-    const isWin = result > target;
+    const segment = Math.floor(float * 10);
+
+    const segmentPayouts = [1.50, 1.20, 1.20, 1.20, 1.20, 1.20, 1.20, 1.20, 0.00, 0.00];
+    const segmentMultiplier = segmentPayouts[segment];
 
     // 0.99 applies our house edge of 1%
-    const payout = isWin ? (amount / odds) * 0.99 : 0;
+    const payout = (segmentMultiplier * amount) * 0.99;
+
     const [bet] = await trx('bet')
       .insert({
         id: uuid(),
@@ -58,8 +58,8 @@ exports.rollDice = ({ user, amount, target }) =>
         user,
         amount,
         payout,
-        result,
-        target,
+        segment,
+        segmentMultiplier,
         nonce,
       })
       .returning('*');
@@ -68,7 +68,7 @@ exports.rollDice = ({ user, amount, target }) =>
       .update('nonce', trx.raw('nonce + 1'))
       .where('id', seed.id);
 
-    await redis.publish('dice', JSON.stringify(bet));
+    await redis.publish('wheel', JSON.stringify(bet));
 
     return bet;
   });

@@ -5,7 +5,7 @@ require('pg');
 exports.knex = createKnex({
   client: 'pg',
   connection: {
-    host: 'dice-postgres',
+    host: 'wheel-postgres',
     user: 'postgres',
     password: 'password',
     database: 'postgres',

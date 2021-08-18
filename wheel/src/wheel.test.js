@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-expressions */
 const _ = require('lodash');
 const { expect } = require('chai');
-const { rollDice } = require('./dice');
+const { spinWheel } = require('./wheel');
 const { knex } = require('./knex');
 
-describe('dice', () => {
+describe('wheel', () => {
   before(async () => {
     await knex.migrate.latest();
   });
 
-  it('rolls the dice', async () => {
-    const bet = await rollDice({ user: 'test', amount: 0.1, target: 50 });
+  it('spins the wheel', async () => {
+    const bet = await spinWheel({ user: 'test', amount: 0.1 });
     expect(bet).to.be.ok;
   });
 
   it('used nonce in order', async () => {
     let bets = await Promise.all(
-      _.range(5).map(() => rollDice({ user: 'test', amount: 0.1, target: 50 }))
+      _.range(5).map(() => spinWheel({ user: 'test', amount: 0.1 }))
     );
 
     // lets sort them in case bets get returned out of order

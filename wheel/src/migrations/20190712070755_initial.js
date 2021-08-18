@@ -16,7 +16,7 @@ exports.up = async (knex) => {
     'create unique index seed_user_actice_unique_index on seed ("user") where active = true'
   );
 
-  await knex.schema.createTable('wheel_bet', (table) => {
+  await knex.schema.createTable('bet', (table) => {
     table.uuid('id').primary();
 
     table.string('user').notNull();
@@ -26,6 +26,8 @@ exports.up = async (knex) => {
     table.integer('nonce').notNull();
 
     table.integer('segment').notNull();
+
+    table.float('segmentMultiplier').notNull();
 
     table.float('amount').notNull();
 

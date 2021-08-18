@@ -3,11 +3,11 @@ const bodyParser = require('body-parser');
 const { knex } = require('./knex');
 const {
   getBets,
-  rollDice,
+  spinWheel,
   getSeed,
   rotateSeed,
   getActiveSeed,
-} = require('./dice');
+} = require('./wheel');
 
 const response = (handler) => async (req, res) => {
   try {
@@ -35,9 +35,9 @@ async function start() {
   );
 
   app.post(
-    '/roll-dice',
-    response(async ({ user, amount, target }) =>
-      rollDice({ user, amount, target })
+    '/spin-wheel',
+    response(async ({ user, amount }) =>
+      spinWheel({ user, amount })
     )
   );
 
