@@ -4,6 +4,8 @@ const { ApolloServer } = require('apollo-server-express');
 const schema = require('./schema');
 
 async function start() {
+  console.log('graphql start');
+
   const app = express();
 
   const server = new ApolloServer({
