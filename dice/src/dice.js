@@ -68,7 +68,10 @@ exports.rollDice = ({ user, amount, target }) =>
       .update('nonce', trx.raw('nonce + 1'))
       .where('id', seed.id);
 
-    await redis.publish('dice', JSON.stringify(bet));
+    await redis.publish('bet', JSON.stringify({
+      game: 'dice',
+      ...bet
+    }));
 
     return bet;
   });

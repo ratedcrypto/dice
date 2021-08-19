@@ -68,7 +68,10 @@ exports.spinWheel = ({ user, amount }) =>
       .update('nonce', trx.raw('nonce + 1'))
       .where('id', seed.id);
 
-    await redis.publish('wheel', JSON.stringify(bet));
+    await redis.publish('bet', JSON.stringify({
+      game: 'wheel',
+      ...bet
+    }));
 
     return bet;
   });
