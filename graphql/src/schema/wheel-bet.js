@@ -4,9 +4,9 @@ const {
   GraphQLFloat,
   GraphQLString,
 } = require('graphql');
-const axios = require('axios');
 const User = require('./user');
 const Seed = require('./seed');
+const { wheelSeedLoader } = require('../../loaders/seedLoader');
     
 exports.Type = new GraphQLObjectType({
   name: 'WheelBet',
@@ -24,7 +24,7 @@ exports.Type = new GraphQLObjectType({
     seed: {
       type: Seed.Type,
       resolve: async ({ seed_id: seedId }) => {
-        const { data } = await axios.post(`http://wheel/get-seed`, { seedId });
+        const data = await wheelSeedLoader.load(seedId);
         return data;
       },
     },
