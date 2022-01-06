@@ -101,3 +101,8 @@ exports.getActiveSeed = async ({ user }) => {
   const [seed] = await knex('seed').where({ user, active: true });
   return parseSeed(seed);
 };
+
+exports.getSeeds = async ({ seedIds }) => {
+  const seeds = await knex('seed').whereIn('id', seedIds);
+  return seeds.map((seed) => parseSeed(seed));
+};

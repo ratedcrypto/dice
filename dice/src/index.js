@@ -7,6 +7,7 @@ const {
   getSeed,
   rotateSeed,
   getActiveSeed,
+  getSeeds
 } = require('./dice');
 
 const response = (handler) => async (req, res) => {
@@ -54,6 +55,11 @@ async function start() {
   app.post(
     '/get-seed',
     response(async ({ seedId }) => getSeed({ seedId }))
+  );
+
+  app.post(
+    '/get-seeds',
+    response(async ({ seedIds }) => getSeeds({ seedIds }))
   );
 
   app.listen(80);
