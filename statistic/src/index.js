@@ -16,11 +16,15 @@ async function start() {
   await knex.migrate.latest();
 
   redis.subscribe('dice');
+  redis.subscribe('wheel');
   redis.on('message', async (channel, json) => {
     try {
       const data = JSON.parse(json);
       if (channel === 'dice') {
-        await updateStatistic(data);
+        await updateStatistic(data, 'dice');
+      }
+      if (channel === 'wheel') {
+        await updateStatistic(data, 'wheel');
       }
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -33,7 +37,7 @@ async function start() {
 
   app.post(
     '/get-statistic',
-    response(async ({ user }) => getStatistic({ user }))
+    response(async ({ user, game }) => getStatistic({ user, game }))
   );
 
   app.listen(80);
